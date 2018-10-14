@@ -4,14 +4,14 @@
 #
 Name     : perl-URI-Escape-XS
 Version  : 0.14
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Summary  : 'Drop-In replacement for URI::Escape'
 Group    : Development/Tools
 License  : Artistic-1.0-Perl
-Requires: perl-URI-Escape-XS-lib
-Requires: perl-URI-Escape-XS-man
+Requires: perl-URI-Escape-XS-lib = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 NAME
@@ -24,20 +24,22 @@ $safe = uri_escape("10% is enough\n");
 $verysafe = uri_escape("foo", "\0-\377");
 $str  = uri_unescape($safe);
 
+%package dev
+Summary: dev components for the perl-URI-Escape-XS package.
+Group: Development
+Requires: perl-URI-Escape-XS-lib = %{version}-%{release}
+Provides: perl-URI-Escape-XS-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-URI-Escape-XS package.
+
+
 %package lib
 Summary: lib components for the perl-URI-Escape-XS package.
 Group: Libraries
 
 %description lib
 lib components for the perl-URI-Escape-XS package.
-
-
-%package man
-Summary: man components for the perl-URI-Escape-XS package.
-Group: Default
-
-%description man
-man components for the perl-URI-Escape-XS package.
 
 
 %prep
@@ -66,9 +68,9 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -77,12 +79,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/URI/Escape/XS.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/URI/Escape/XS.pm
+
+%files dev
+%defattr(-,root,root,-)
+/usr/share/man/man3/URI::Escape::XS.3
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man3/URI::Escape::XS.3
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
