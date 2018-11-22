@@ -4,7 +4,7 @@
 #
 Name     : perl-URI-Escape-XS
 Version  : 0.14
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Summary  : 'Drop-In replacement for URI::Escape'
@@ -79,7 +79,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/URI/Escape/XS.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/URI/Escape/XS.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -87,4 +87,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
