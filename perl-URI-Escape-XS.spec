@@ -4,7 +4,7 @@
 #
 Name     : perl-URI-Escape-XS
 Version  : 0.14
-Release  : 3
+Release  : 4
 URL      : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Summary  : 'Drop-In replacement for URI::Escape'
