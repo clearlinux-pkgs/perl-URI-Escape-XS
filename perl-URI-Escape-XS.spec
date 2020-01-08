@@ -4,13 +4,13 @@
 #
 Name     : perl-URI-Escape-XS
 Version  : 0.14
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-0.14.tar.gz
 Summary  : 'Drop-In replacement for URI::Escape'
 Group    : Development/Tools
 License  : Artistic-1.0-Perl
-Requires: perl-URI-Escape-XS-lib = %{version}-%{release}
+Requires: perl-URI-Escape-XS-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -27,29 +27,31 @@ $str  = uri_unescape($safe);
 %package dev
 Summary: dev components for the perl-URI-Escape-XS package.
 Group: Development
-Requires: perl-URI-Escape-XS-lib = %{version}-%{release}
 Provides: perl-URI-Escape-XS-devel = %{version}-%{release}
+Requires: perl-URI-Escape-XS = %{version}-%{release}
 
 %description dev
 dev components for the perl-URI-Escape-XS package.
 
 
-%package lib
-Summary: lib components for the perl-URI-Escape-XS package.
-Group: Libraries
+%package perl
+Summary: perl components for the perl-URI-Escape-XS package.
+Group: Default
+Requires: perl-URI-Escape-XS = %{version}-%{release}
 
-%description lib
-lib components for the perl-URI-Escape-XS package.
+%description perl
+perl components for the perl-URI-Escape-XS package.
 
 
 %prep
 %setup -q -n URI-Escape-XS-0.14
+cd %{_builddir}/URI-Escape-XS-0.14
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -59,7 +61,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -79,12 +81,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/URI/Escape/XS.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/URI::Escape::XS.3
 
-%files lib
+%files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/URI/Escape/XS.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/URI/Escape/XS/XS.so
